@@ -14,7 +14,7 @@ import lombok.Setter;
 @Entity
 public class Cliente extends Usuario {
 	
-	private String cpg;
+	private String cpf;
 	
 	private String cep;
 
