@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.mstadtlober.bluefood.application.ClienteService;
+import br.com.mstadtlober.bluefood.application.RestauranteService;
 import br.com.mstadtlober.bluefood.application.ValidationException;
 import br.com.mstadtlober.bluefood.domain.cliente.Cliente;
 import br.com.mstadtlober.bluefood.domain.restaurante.CategoriaRestauranteRepository;
@@ -23,6 +24,9 @@ public class PublicController {
 	
 	@Autowired
 	private ClienteService clienteService;
+	
+	@Autowired
+	private RestauranteService restauranteService; 
 	
 	@Autowired
 	private CategoriaRestauranteRepository categoriaRestauranteRepository; 
@@ -62,6 +66,26 @@ public class PublicController {
 		ControllerHelper.setEditMode(model, false);
 		
 		return "cliente-cadastro";
+	}
+	
+	@PostMapping("/restaurante/save")
+	public String saveRestaurante(@ModelAttribute("restaurante") @Valid Restaurante restaurante,
+			Errors errors,
+			Model model) {
+		
+		if (!errors.hasErrors()) {
+			try {
+				restauranteService.saveRestaurante(restaurante);
+				model.addAttribute("msg", "Restaurante gravado com sucesso!");
+				
+			} catch (ValidationException e) {
+				errors.rejectValue("email", null, e.getMessage());
+			}
+		}
+		
+		ControllerHelper.setEditMode(model, false);
+		
+		return "restaurante-cadastro";
 	}
 
 }

@@ -23,9 +23,11 @@ public class RestauranteService {
 			
 		} else {
 			restaurante.encryptPassword();
+			restaurante = restauranteRepository.save(restaurante);
+			restaurante.setLogotipoFileName();
+			// TODO: Upload!
 		}
 		
-		restauranteRepository.save(restaurante);
 	}
 	
 	private boolean validateEmail(String email, Integer id) {

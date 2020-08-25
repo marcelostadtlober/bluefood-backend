@@ -17,11 +17,11 @@
 						<input type="hidden" th:field="*{id}" th:if="${editMode}"/>
 					
 						<label for="nome">Nome do Restaurante: </label><br/>	
-						<input type="text" id="nome" name="nome" placeholder="Nome..." th:field="*{nome}" th:classappend="${#fields.hasErrors('nome')} ? 'inputError' : ''"/><br/><br/>
-						<div id="mensagemDeErro" th:if="${#fields.hasErrors('nome')}">
-							<span th:errors="*{nome}"></span>
-						</div>
-						<br/><br/>
+						<input type="text" id="nome" name="nome" placeholder="Nome..." th:field="*{nome}"
+		                	th:classappend="${#fields.hasErrors('nome')} ? 'inputError' : ''"/><br/><br/>
+		                <div id="divMensagemDeErro" th:if="${#fields.hasErrors('nome')}">
+		                	<span th:errors="*{nome}"></span>
+		                </div><br/>
 						
 						<label for="cnpj">CNPJ: </label><br/>	
 						<input type="text" id="cnpj" name="cnpj" placeholder="CNPJ..." th:field="*{cnpj}" th:classappend="${#fields.hasErrors('cnpj')} ? 'inputError' : ''"/><br/>
@@ -59,7 +59,7 @@
 						<br/><br/>
 						
 						<label for="logotipo">Logotipo: </label><br>	
-						<input type="file" id="logotipo" name="logotipo" placeholder="Selecionar..."/><br/><br/>
+						<input type="file" id="logotipo" name="logotipo" placeholder="Selecionar..." th:field="*{logotipoFile}"/><br/><br/>
 						
 						<label for="categoria">Categoria de comida: </label><br/>	
 						<select name="categoria" id="categoria" multiple="multiple" th:field="*{categorias}" style="height: 90px;" th:classappend="${#fields.hasErrors('categorias')} ? 'inputError' : ''">
@@ -84,7 +84,7 @@
 						<input type="submit" th:value="${!editMode} ? 'Cadastrar' : 'Alterar'"/>
 					</fieldset>
 				</form>
-				<br>
+				<br/>
 				
 				<input type="button" value="Voltar" onclick="location.href='index.html';"/>
 			</div>
