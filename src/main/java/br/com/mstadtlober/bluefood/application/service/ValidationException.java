@@ -1,4 +1,4 @@
-package br.com.mstadtlober.bluefood.application;
+package br.com.mstadtlober.bluefood.application.service;
 
 @SuppressWarnings("serial")
 public class ValidationException extends Exception {
