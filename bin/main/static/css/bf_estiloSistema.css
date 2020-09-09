@@ -146,6 +146,8 @@ td {
 }
 
 div#divCategoriasDeComidaOpcao {
+	background-color: #ffffff;
+	width: 20%;
     height: 130px;
     float: left;
 }
