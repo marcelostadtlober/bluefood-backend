@@ -23,6 +23,7 @@ import br.com.mstadtlober.bluefood.domain.cliente.ClienteRepository;
 import br.com.mstadtlober.bluefood.domain.restaurante.CategoriaRestaurante;
 import br.com.mstadtlober.bluefood.domain.restaurante.CategoriaRestauranteRepository;
 import br.com.mstadtlober.bluefood.domain.restaurante.Restaurante;
+import br.com.mstadtlober.bluefood.domain.restaurante.RestauranteRepository;
 import br.com.mstadtlober.bluefood.domain.restaurante.SearchFilter;
 import br.com.mstadtlober.bluefood.util.SecurityUtils;
 
@@ -35,6 +36,9 @@ public class ClienteController {
 	
 	@Autowired
 	private CategoriaRestauranteRepository categoriaRestauranteRepository;
+	
+	@Autowired
+	private RestauranteRepository restauranteRepository;
 	
 	@Autowired
 	private ClienteService clienteService;
@@ -92,11 +96,23 @@ public class ClienteController {
 		List<Restaurante> restaurantes = restauranteService.search(filter);
 		model.addAttribute("restaurantes", restaurantes);
 		
-		ControllerHelper.addCategoriasToRequest(categoriaRestauranteRepository, model);
-		
+		ControllerHelper.addCategoriasToRequest(categoriaRestauranteRepository, model);		
 		model.addAttribute("searchFilter", filter);
+		model.addAttribute("cep", SecurityUtils.loggedCliente().getCep());
 		
 		return "cliente-busca";
+	}
+	
+	@GetMapping(path = "/restaurante")
+	public String viewRestaurante(@RequestParam("restauranteId") Integer restauranteId,
+			Model model) {
+		
+		Restaurante restaurante = restauranteRepository.findById(restauranteId).orElseThrow();
+		model.addAttribute("restaurante", restaurante);
+		
+		model.addAttribute("cep", SecurityUtils.loggedCliente().getCep());
+		
+		return "cliente-restaurante";
 	}
 
 }
