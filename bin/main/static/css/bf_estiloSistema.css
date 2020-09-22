@@ -171,6 +171,28 @@ input#inputSelecionado {
     border-color: #1e9bde;
 }
 
+div#mensagemDeErro
+{
+	background-color: #d40000;
+	width: 400px;
+	border-radius: 5px;
+	padding: 10px;
+	color: #ffffff;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div#mensagemDeSucesso
+{
+	background-color: #0BAF00;
+	width: 400px;
+	border-radius: 5px;
+	padding: 10px;
+	color: #ffffff;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 img#imgRestauranteOpcao {
     height: 130px;
 }
