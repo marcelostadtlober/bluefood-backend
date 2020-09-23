@@ -7,6 +7,11 @@ body {
     margin: 0px;
 }
 
+input#inputLargo
+{
+	width: 300px;
+}
+
 a {
     color: #000000;
     text-decoration: none;
