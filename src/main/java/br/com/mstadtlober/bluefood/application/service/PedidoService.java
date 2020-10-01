@@ -13,6 +13,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.mstadtlober.bluefood.domain.pagamento.DadosCartao;
+import br.com.mstadtlober.bluefood.domain.pagamento.Pagamento;
+import br.com.mstadtlober.bluefood.domain.pagamento.PagamentoRepository;
 import br.com.mstadtlober.bluefood.domain.pagamento.StatusPagamento;
 import br.com.mstadtlober.bluefood.domain.pedido.Carrinho;
 import br.com.mstadtlober.bluefood.domain.pedido.ItemPedido;
@@ -31,6 +33,9 @@ public class PedidoService {
 	
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 	
 	@Value("${bluefood.sbpay.url}")
 	private String sbPayUrl;
@@ -81,6 +86,12 @@ public class PedidoService {
 		if (statusPagamento != StatusPagamento.Autorizado) {
 			throw new PagamentoException(statusPagamento.getDescricao());
 		}
+		
+		Pagamento pagamento = new Pagamento();
+		pagamento.setData(LocalDateTime.now());
+		pagamento.setPedido(pedido);
+		pagamento.definirNumeroEBandeira(numCartao);
+		pagamentoRepository.save(pagamento);
 		
 		return pedido;
 	}
