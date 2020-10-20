@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.mstadtlober.bluefood.application.service.RestauranteService;
 import br.com.mstadtlober.bluefood.application.service.ValidationException;
+import br.com.mstadtlober.bluefood.domain.pedido.Pedido;
+import br.com.mstadtlober.bluefood.domain.pedido.PedidoRepository;
 import br.com.mstadtlober.bluefood.domain.restaurante.CategoriaRestauranteRepository;
 import br.com.mstadtlober.bluefood.domain.restaurante.ItemCardapio;
 import br.com.mstadtlober.bluefood.domain.restaurante.ItemCardapioRepository;
@@ -39,8 +41,15 @@ public class RestauranteController {
 	@Autowired
 	private ItemCardapioRepository itemCardapioRepository;
 	
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	
 	@GetMapping(path = "/home")
-	public String home() {
+	public String home(Model model) {
+		Integer restauranteId = SecurityUtils.loggedRestaurante().getId();
+		List<Pedido> pedidos = pedidoRepository.findByRestaurante_IdOrderByDataDesc(restauranteId);
+		model.addAttribute("pedidos", pedidos);
+		
 		return "restaurante-home";
 	}
 	
