@@ -67,7 +67,7 @@
 				</fieldset>
 			</form>
 			
-			<input type="button" value="Voltar" onClick="location.href='restauranteHome.html';">
+			<input type="button" value="Voltar" th:onclick="'location.href=\'' + @{/restaurante/home} + '\';'" />
 			
 		</div>
 	</body>

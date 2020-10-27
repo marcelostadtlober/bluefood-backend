@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.com.mstadtlober.bluefood.application.service.RelatorioService;
 import br.com.mstadtlober.bluefood.application.service.RestauranteService;
 import br.com.mstadtlober.bluefood.application.service.ValidationException;
 import br.com.mstadtlober.bluefood.domain.pedido.Pedido;
 import br.com.mstadtlober.bluefood.domain.pedido.PedidoRepository;
+import br.com.mstadtlober.bluefood.domain.pedido.RelatorioPedidoFilter;
 import br.com.mstadtlober.bluefood.domain.restaurante.CategoriaRestauranteRepository;
 import br.com.mstadtlober.bluefood.domain.restaurante.ItemCardapio;
 import br.com.mstadtlober.bluefood.domain.restaurante.ItemCardapioRepository;
@@ -31,6 +33,9 @@ public class RestauranteController {
 	
 	@Autowired
 	private RestauranteService restauranteService;
+	
+	@Autowired
+	private RelatorioService relatorioService;
 	
 	@Autowired
 	private RestauranteRepository restauranteRepository;
@@ -149,6 +154,20 @@ public class RestauranteController {
 		model.addAttribute("msg", "Status alterado com sucesso");
 		
 		return "restaurante-pedido";
+	}
+	
+	@GetMapping("/relatorio/pedidos")
+	public String relatorioPedidos(
+			@ModelAttribute("relatorioPedidoFilter") RelatorioPedidoFilter filter,
+			Model model) {
+		
+		Integer restauranteId = SecurityUtils.loggedRestaurante().getId();
+		List<Pedido> pedidos = relatorioService.listPedido(restauranteId, filter);
+		model.addAttribute("pedidos", pedidos);
+		
+		model.addAttribute("filter", filter);
+		
+		return "restaurante-relatorio-pedidos";
 	}
 
 }
