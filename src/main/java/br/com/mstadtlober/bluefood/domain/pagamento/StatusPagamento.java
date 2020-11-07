@@ -3,8 +3,8 @@ package br.com.mstadtlober.bluefood.domain.pagamento;
 public enum StatusPagamento {
 	
 	Autorizado("Autorizado"),
-	NaoAutorizado("N„o autorizado pela instituiÁ„o financeira"),
-	CartaoInvalido("Cart„o inv·lido ou nloqueado");
+	NaoAutorizado("N√£o autorizado pela institui√ß√£o financeira"),
+	CartaoInvalido("Cart√£o inv√≠lido ou bloqueado");
 	
 	String descricao;
 	

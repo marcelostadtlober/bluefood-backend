@@ -53,7 +53,7 @@ public class CarrinhoController {
 			carrinho.adicionarItem(itemCardapio, quantidade, observacoes);
 			
 		} catch (RestauranteDiferenteException e) {
-			model.addAttribute("msg", "Não é possível misturar comidas de restaurantes diferentes");
+			model.addAttribute("msg", "NÃ£o Ã© possÃ­vel misturar comidas de restaurantes diferentes");
 		}
 		
 		return "cliente-carrinho";
